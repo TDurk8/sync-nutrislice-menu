@@ -37,7 +37,7 @@ A Python application that syncs school menu data from Nutrislice to Google Calen
 All configuration can be set via environment variables. See `.env.example` for all available options.
 
 Key settings:
-- `MENU_SCHOOL_SLUG`: School identifier in the Nutrislice API (default: `wilder`)
+- `MENU_SCHOOL_SLUG`: School identifier in the Nutrislice API
 - `MENU_CALENDAR_ID`: Google Calendar ID to sync to
 - `MENU_MAX_WEEKS`: Number of weeks to fetch (default: `52`)
 - `MENU_MIN_COMMAS`: Minimum commas in menu description to import (default: `2`)
