@@ -1,0 +1,36 @@
+name: Sync School Menu to Calendar
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  sync-menu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run menu sync
+        env:
+          MENU_SCHOOL_SLUG: ${{ secrets.MENU_SCHOOL_SLUG }}
+          MENU_CALENDAR_ID: ${{ secrets.MENU_CALENDAR_ID }}
+          MENU_TYPES: ${{ secrets.MENU_TYPES }}
+          MENU_NO_DATA_PHRASES: ${{ secrets.MENU_NO_DATA_PHRASES }}
+          MENU_TITLE_BREAKFAST: ${{ secrets.MENU_TITLE_BREAKFAST }}
+          MENU_TITLE_LUNCH: ${{ secrets.MENU_TITLE_LUNCH }}
+          MENU_MAX_WEEKS: ${{ secrets.MENU_MAX_WEEKS }}
+          MENU_MIN_COMMAS: ${{ secrets.MENU_MIN_COMMAS }}
+        run: |
+          python getmenu.py
