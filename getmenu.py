@@ -18,8 +18,8 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 CONFIG = {
     "SCHOOL_SLUG": os.getenv("MENU_SCHOOL_SLUG"),
     "CALENDAR_ID": os.getenv("MENU_CALENDAR_ID"),
-    "MAX_WEEKS": int(os.getenv("MENU_MAX_WEEKS", "52")),
-    "MIN_COMMA_THRESHOLD": int(os.getenv("MENU_MIN_COMMAS", "2")),
+    "MAX_WEEKS": int(os.getenv("MENU_MAX_WEEKS", 52)),
+    "MIN_COMMA_THRESHOLD": int(os.getenv("MENU_MIN_COMMAS", 2)),
     "NO_MENU_DESCRIPTIONS": set(
         phrase.strip()
         for phrase in os.getenv("MENU_NO_DATA_PHRASES", "").split(",")
