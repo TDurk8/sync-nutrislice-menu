@@ -6,19 +6,14 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
-      school_slug:
-        description: Nutrislice school slug
+      environment:
+        description: GitHub environment whose secrets to use
         required: true
-        type: choice
-        options:
-          - wilder
-      calendar_id:
-        description: Google Calendar ID
-        required: true
-        type: string
+        type: environment
 jobs:
   sync-menu:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment || 'wilder' }}
     steps:
       - uses: actions/checkout@v4
       
@@ -37,7 +32,7 @@ jobs:
           GOOGLE_TOKEN_JSON: ${{ secrets.GOOGLE_TOKEN_JSON }}
         run: |
           if [ -z "$GOOGLE_TOKEN_JSON" ]; then
-            echo "::error::Missing repository secret GOOGLE_TOKEN_JSON."
+            echo "::error::Missing GOOGLE_TOKEN_JSON secret in the selected environment."
             exit 1
           fi
           printf '%s' "$GOOGLE_TOKEN_JSON" > token.json
@@ -45,8 +40,8 @@ jobs:
       
       - name: Run menu sync
         env:
-          MENU_SCHOOL_SLUG: ${{ inputs.school_slug || secrets.MENU_SCHOOL_SLUG }}
-          MENU_CALENDAR_ID: ${{ inputs.calendar_id || secrets.MENU_CALENDAR_ID }}
+          MENU_SCHOOL_SLUG: ${{ secrets.MENU_SCHOOL_SLUG }}
+          MENU_CALENDAR_ID: ${{ secrets.MENU_CALENDAR_ID }}
           MENU_TITLE_BREAKFAST: ${{ secrets.MENU_TITLE_BREAKFAST }}
           MENU_TITLE_LUNCH: ${{ secrets.MENU_TITLE_LUNCH }}
           MENU_MAX_WEEKS: ${{ secrets.MENU_MAX_WEEKS }}
