@@ -34,7 +34,7 @@ A Python application that syncs school menu data from Nutrislice to Google Calen
 
 ### Configuration
 
-All configuration can be set via environment variables. See `.env.example` for all available options.
+School and calendar settings can be provided through environment variables. Menu types and no-menu phrases are fixed in `getmenu.py`.
 
 On Windows, create a local configuration file from the example and replace its sample school slug and calendar ID with your own values:
 ```powershell
@@ -49,7 +49,6 @@ Key settings:
 - `MENU_CALENDAR_ID`: Google Calendar ID to sync to
 - `MENU_MAX_WEEKS`: Number of weeks to fetch (default: `52`)
 - `MENU_MIN_COMMAS`: Minimum commas in menu description to import (default: `2`)
-- `MENU_TYPES`: Meal types to sync, comma-separated (default: `breakfast,lunch`)
 
 Example:
 ```bash
@@ -100,7 +99,7 @@ Events are skipped or deleted if they contain phrases like:
 - "Teacher Workday"
 - "Spring Recess"
 
-Customize via the `MENU_NO_DATA_PHRASES` environment variable.
+These phrases are defined in `getmenu.py` and apply to every run.
 
 ## Logging
 
@@ -111,16 +110,7 @@ Output uses Python logging with INFO level by default. Messages include:
 
 ## Extensibility
 
-To sync additional meal types (e.g., "snack", "dinner"):
-1. Update `MENU_TYPES` environment variable
-2. Add display title via `MENU_TITLE_<TYPE>` (e.g., `MENU_TITLE_SNACK=Snack`)
-
-Example:
-```bash
-set MENU_TYPES=breakfast,lunch,snack
-set MENU_TITLE_SNACK=Snack
-python getmenu.py
-```
+To sync additional meal types (e.g., "snack", "dinner"), add them to the `MENU_TYPES` list in `getmenu.py`. Add a display title via `MENU_TITLE_<TYPE>` (e.g., `MENU_TITLE_SNACK=Snack`).
 
 ## Files
 

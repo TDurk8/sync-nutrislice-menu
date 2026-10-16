@@ -4,8 +4,16 @@ on:
   schedule:
     # Run daily at 6 AM UTC
     - cron: '0 6 * * *'
-  workflow_dispatch:  # Allow manual trigger
-
+  workflow_dispatch:
+    inputs:
+      school_slug:
+        description: Nutrislice school slug
+        required: true
+        type: string
+      calendar_id:
+        description: Google Calendar ID
+        required: true
+        type: string
 jobs:
   sync-menu:
     runs-on: ubuntu-latest
@@ -24,10 +32,8 @@ jobs:
       
       - name: Run menu sync
         env:
-          MENU_SCHOOL_SLUG: ${{ secrets.MENU_SCHOOL_SLUG }}
-          MENU_CALENDAR_ID: ${{ secrets.MENU_CALENDAR_ID }}
-          MENU_TYPES: ${{ secrets.MENU_TYPES }}
-          MENU_NO_DATA_PHRASES: ${{ secrets.MENU_NO_DATA_PHRASES }}
+          MENU_SCHOOL_SLUG: ${{ inputs.school_slug || secrets.MENU_SCHOOL_SLUG }}
+          MENU_CALENDAR_ID: ${{ inputs.calendar_id || secrets.MENU_CALENDAR_ID }}
           MENU_TITLE_BREAKFAST: ${{ secrets.MENU_TITLE_BREAKFAST }}
           MENU_TITLE_LUNCH: ${{ secrets.MENU_TITLE_LUNCH }}
           MENU_MAX_WEEKS: ${{ secrets.MENU_MAX_WEEKS }}
