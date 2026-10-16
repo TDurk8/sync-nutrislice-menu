@@ -1,3 +1,5 @@
+.env
 .env.example
 token.json
 credentials.json
+__pycache__/generate_token.cpython-314.pyc

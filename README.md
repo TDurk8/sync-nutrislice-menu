@@ -36,6 +36,14 @@ A Python application that syncs school menu data from Nutrislice to Google Calen
 
 All configuration can be set via environment variables. See `.env.example` for all available options.
 
+On Windows, create a local configuration file from the example and replace its sample school slug and calendar ID with your own values:
+```powershell
+Copy-Item .env.example .env
+notepad .env
+```
+
+Save `.env` in the project directory before running `getmenu.py`. The file is excluded from Git.
+
 Key settings:
 - `MENU_SCHOOL_SLUG`: School identifier in the Nutrislice API
 - `MENU_CALENDAR_ID`: Google Calendar ID to sync to
