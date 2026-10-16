@@ -9,7 +9,9 @@ on:
       school_slug:
         description: Nutrislice school slug
         required: true
-        type: string
+        type: choice
+        options:
+          - wilder
       calendar_id:
         description: Google Calendar ID
         required: true
