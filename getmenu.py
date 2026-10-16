@@ -20,16 +20,16 @@ CONFIG = {
     "CALENDAR_ID": os.getenv("MENU_CALENDAR_ID"),
     "MAX_WEEKS": int(os.getenv("MENU_MAX_WEEKS", "").strip() or 52),
     "MIN_COMMA_THRESHOLD": int(os.getenv("MENU_MIN_COMMAS", "").strip() or 2),
-    "NO_MENU_DESCRIPTIONS": set(
-        phrase.strip()
-        for phrase in os.getenv("MENU_NO_DATA_PHRASES", "").split(",")
-        if phrase.strip()
-    ),
-    "MENU_TYPES": [
-        t.strip()
-        for t in os.getenv("MENU_TYPES", "").split(",")
-        if t.strip()
-    ],
+    "NO_MENU_DESCRIPTIONS": {
+        "no menu data",
+        "professional development",
+        "teacher workday",
+        "spring recess",
+        "winter recess",
+        "holiday",
+        "closed",
+    },
+    "MENU_TYPES": ["breakfast", "lunch"],
     "MENU_TITLES": {},
 }
 
